@@ -24,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \URL::forceScheme('https'); // リンクをHTTPSにする設定に修正
+        
+        if (request()->is('admin/*')) {
+        config(['session.cookie' => config('session.cookie_admin')]);
+        }
     }
 }

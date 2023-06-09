@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    /**
+     * この選手のポジション。（ Positionモデルとの関係を定義）
+     */
+     public function position(){
+         return $this->belongsTo(Position::class);
+     }
 }

@@ -2,7 +2,7 @@
     {{-- チーム詳細ページへのリンク --}}
     <li><a class="link link-hover" href="#">チームprofile</a></li>
     {{-- メンバー詳細ページへのリンク --}}
-    <li><a class="link link-hover" href="#">member</a></li>
+    <li><a class="link link-hover" href="{{ route('admin.users.index') }}">member</a></li>
     <li class="divider lg:hidden"></li>
     {{-- ログアウトへのリンク --}}
     <li><a class="link link-hover" href="route('admin.logout')" onclick="event.preventDefault();this.closest('form').submit();">Logout</a></li>

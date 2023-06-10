@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController; //adminの選手操作
 use App\Http\Controllers\ProfileController as ProfileOfAdminController; //追加
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/profile', [ProfileOfAdminController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileOfAdminController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileOfAdminController::class, 'destroy'])->name('profile.destroy');
+        
+        Route::get('/users',[AdminUsersController::class, 'index'])->name('users.index');
+        Route::get('/users/create',[AdminUsersController::class, 'create'])->name('users.create');
+        Route::post('/users/store',[AdminUsersController::class, 'store'])->name('users.store');
+        Route::get('/users/{id}',[AdminUsersController::class, 'show'])->name('users.show');
     });
 
     require __DIR__.'/admin.php';

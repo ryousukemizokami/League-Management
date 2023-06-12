@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController; //adminの選手操作
+use App\Http\Controllers\Admin\GamesController as AdminGamesController; //adminの試合操作
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; //adminのダッシュボード操作
 use App\Http\Controllers\ProfileController as ProfileOfAdminController; //追加
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,14 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/users/create',[AdminUsersController::class, 'create'])->name('users.create');
         Route::post('/users/store',[AdminUsersController::class, 'store'])->name('users.store');
         Route::get('/users/{id}',[AdminUsersController::class, 'show'])->name('users.show');
+        
+        Route::get('/games/create',[AdminGamesController::class, 'create'])->name('games.create');
+        Route::post('/games/store',[AdminGamesController::class, 'store'])->name('games.store');
+        Route::get('/games/{id}',[AdminGamesController::class, 'show'])->name('games.show');
+        
+        
+        Route::get('/dashboard',[AdminDashboardController::class, 'index'])->name('dashboard');
+        
     });
 
     require __DIR__.'/admin.php';

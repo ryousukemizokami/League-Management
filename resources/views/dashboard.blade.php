@@ -1,17 +1,45 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+@section('content')
+    @if(!Auth::check())
+        <div class="prose hero bg-base-200 mx-auto max-w-full rounded">
+            <div class="hero-content text-center my-10">
+                <div class="max-w-md mb-10">
+                    <h2>Welcome to League Management</h2>
+                    {{-- 選手ログインページへのリンク --}}
+                    <a class="btn btn-primary btn-lg normal-case" href="{{ route('login') }}">Login now!</a>
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+    @else
+        
+        <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">プロフィール編集</a>
+        
+        <table class="table table-zebra w-full">
+            <thead>
+                <tr>
+                    <th class="text-center">試合ID</th>
+                    <th class="text-center">日にち</th>
+                    <th class="text-center">時間</th>
+                    <th class="text-center">対戦相手</th>
+                    <th class="text-center">場所</th>
+                    <th class="text-center">メモ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($games as $game)
+                    <tr>
+                        <th class="text-center"><a href="route('games.show')">{{ $game->id }}</a></th>
+                        <td class="text-center">{{ $game->day }}</td>
+                        <td class="text-center">{{ $game->time }}</td>
+                        <td class="text-center">{{ $game->battleteam }}</td>
+                        <td class="text-center">{{ $game->place }}</td>
+                        <td class="text-center">{{ $game->memo }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
+    @endif
+    
+@endsection

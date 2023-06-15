@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController; //adminの選手操作
 use App\Http\Controllers\Admin\GamesController as AdminGamesController; //adminの試合操作
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; //adminのダッシュボード操作
+use App\Http\Controllers\UsersController as PlayerUsersController; //選手の選手情報操作
+use App\Http\Controllers\GamesController as PlayerGamesController; //選手の試合操作
+use App\Http\Controllers\DashboardController as playerDashboardController; //選手のダッシュボード操作
 use App\Http\Controllers\ProfileController as ProfileOfAdminController; //追加
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -27,9 +30,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('/dashboard',[PlayerDashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('/users',[playerUsersController::class, 'index'])->name('users.index');
+    Route::get('/users/{id}',[PlayerUsersController::class, 'show'])->name('users.show');
+    Route::get('/users/{id}/edit',[PlayerUsersController::class, 'edit'])->name('users.edit');
+    Route::post('/users/{id}/update',[PlayerUsersController::class, 'update'])->name('users.update');
+    
 });
 
 require __DIR__.'/auth.php';

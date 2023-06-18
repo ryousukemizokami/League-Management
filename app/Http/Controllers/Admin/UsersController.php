@@ -38,7 +38,7 @@ class UsersController extends Controller
         $user->position_id = $request->position_id;
         $user->save();
         
-        return view('admin.dashboard');
+        return redirect('admin/dashboard');
     }
     
     //選手詳細

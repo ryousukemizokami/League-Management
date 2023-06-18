@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+//admin側操作
 use App\Http\Controllers\Admin\UsersController as AdminUsersController; //adminの選手操作
 use App\Http\Controllers\Admin\GamesController as AdminGamesController; //adminの試合操作
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; //adminのダッシュボード操作
+use App\Http\Controllers\Admin\UserGamesController as AdminUserGamesController; //adminの試合の出欠確定操作
+//Player側操作
 use App\Http\Controllers\UsersController as PlayerUsersController; //選手の選手情報操作
 use App\Http\Controllers\GamesController as PlayerGamesController; //選手の試合操作
 use App\Http\Controllers\DashboardController as playerDashboardController; //選手のダッシュボード操作
+use App\Http\Controllers\UserGamesController as PlayerUserGamesController; //選手の試合の出欠回答操作
+
 use App\Http\Controllers\ProfileController as ProfileOfAdminController; //追加
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/users',[playerUsersController::class, 'index'])->name('users.index');
     Route::get('/users/{id}',[PlayerUsersController::class, 'show'])->name('users.show');
     Route::get('/users/{id}/edit',[PlayerUsersController::class, 'edit'])->name('users.edit');
-    Route::post('/users/{id}/update',[PlayerUsersController::class, 'update'])->name('users.update');
+    Route::put('/users/{id}/update',[PlayerUsersController::class, 'update'])->name('users.update');
+    
+    Route::get('/games/{id}',[PlayerGamesController::class, 'show'])->name('games.show');
+    Route::post('/games/{id}/submit',[PlayerUserGamesController::class, 'store'])->name('games.submit');
     
 });
 
@@ -64,6 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/games/create',[AdminGamesController::class, 'create'])->name('games.create');
         Route::post('/games/store',[AdminGamesController::class, 'store'])->name('games.store');
         Route::get('/games/{id}',[AdminGamesController::class, 'show'])->name('games.show');
+        
+        Route::put('/games/{id}/update',[AdminUserGamesController::class, 'update'])->name('games.update');
         
         
         Route::get('/dashboard',[AdminDashboardController::class, 'index'])->name('dashboard');

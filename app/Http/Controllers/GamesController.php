@@ -15,6 +15,7 @@ class GamesController extends Controller
     public function show(Request $request, $id)
     {
         $game = Game::find($id);
+        //dd($game);
         return view('games.show', compact('game'));
     }
 }

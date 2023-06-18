@@ -8,7 +8,7 @@
     <div class="flex justify-center">
         <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data" class="w-1/2">
             @csrf
-
+            @method('PUT')
             <div class="form-control my-4">
                 <label for="name" class="label">
                     <span class="label-text">Name</span>

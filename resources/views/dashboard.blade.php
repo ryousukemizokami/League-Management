@@ -29,7 +29,7 @@
             <tbody>
                 @foreach($games as $game)
                     <tr>
-                        <th class="text-center"><a href="route('games.show')">{{ $game->id }}</a></th>
+                        <th class="text-center"><a href="{{ route('games.show', $game->id) }}">{{ $game->id }}</a></th>
                         <td class="text-center">{{ $game->day }}</td>
                         <td class="text-center">{{ $game->time }}</td>
                         <td class="text-center">{{ $game->battleteam }}</td>

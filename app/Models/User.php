@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Position;
+use App\Models\Game;
+use App\Models\UserGame;
 
 class User extends Authenticatable
 {
@@ -49,4 +52,67 @@ class User extends Authenticatable
      public function position(){
          return $this->belongsTo(Position::class);
      }
+     
+     /**
+     * この選手が回答した試合。（ Gameモデルとの関係を定義）
+     */
+     public function games(){
+         return $this->belongsToMany(Game::class, 'user_games', 'user_id', 'game_id')->withTimestamps();
+     }
+     
+     /**
+     * $gameIdで指定された試合の出欠を回答する。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+     public function submit($gameId, $positionId, $status)
+    {
+        $exist = $this->is_submitting($gameId);
+        
+        if($exist){
+            return false;
+        }else{
+            $this->games()->attach($gameId, ['position_id' => $positionId, 'status' => $status]);
+            return true;
+        }
+    }
+    
+    /**
+     * 指定された$gameIdで選手が回答済みかどうか調べる。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_submitting($gameId)
+    {
+        return $this->games()->where('game_id', $gameId)->exists();
+    }
+    
+    /**
+     * 監督によって選手が指定された$gameIdの試合への参加が確定した。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_done($gameId)
+    {
+        return $this->games()->where('game_id', $gameId)->where('status', 2)->exists();
+    }
+    
+    /**
+     * 選手が出席する試合（UserGameテーブル）に登録されている選手のposition_idを取得
+     * positionテーブルでそのnameを取得。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function position_name($gameId)
+    {
+        $position_id = $this->hasMany(UserGame::class)->where('game_id', $gameId)->get()->first()->position_id;
+        return Position::find($position_id)->name;
+    }
 }

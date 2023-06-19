@@ -33,7 +33,11 @@
                         <td class="text-center">{{ $game->place }}</td>
                         <td class="text-center">{{ $game->memo }}</td>
                         <td class="text-center">
-                            {{--参加が決定した選手--}}
+                            @foreach($game->users as $user)
+                                @if($game->is_determined($user->id))
+                                    <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                                @endif
+                            @endforeach
                         </td>
                     </tr>
             </tbody>

@@ -15,7 +15,8 @@ class GamesController extends Controller
     public function show(Request $request, $id)
     {
         $game = Game::find($id);
-        //dd($game);
-        return view('games.show', compact('game'));
+        $positions = Position::all();
+        $users = $game->users()->whereIn('status', [1, 2])->get();
+        return view('games.show', compact('game', 'positions', 'users'));
     }
 }

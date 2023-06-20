@@ -21,6 +21,15 @@ class GamesController extends Controller
     //試合を保存
     public function store(Request $request)
     {
+        
+        //バリデーション
+        $request->validate([
+            'day' => 'required',
+            'time' => 'required',
+            'battleteam' => 'required|max:255',
+            'place' => 'required|max:255',
+        ]);
+        
         $game = new Game;
         $game->day = $request->day;
         $game->time = $request->time;

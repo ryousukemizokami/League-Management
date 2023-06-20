@@ -61,7 +61,7 @@
                     <tr>
                         <td class="text-center">{{ $user->name }}</td>
                         @if(!$user->is_done($game->id))
-                            <form method="post" action="{{ route('admin.games.update', $game->id) }}">
+                            <form method="post" action="{{ route('admin.games.position.update', $game->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">

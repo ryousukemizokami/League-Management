@@ -72,8 +72,10 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/games/create',[AdminGamesController::class, 'create'])->name('games.create');
         Route::post('/games/store',[AdminGamesController::class, 'store'])->name('games.store');
         Route::get('/games/{id}',[AdminGamesController::class, 'show'])->name('games.show');
+        Route::get('/games/{id}/edit',[AdminGamesController::class, 'edit'])->name('games.edit');
+        Route::put('/games/{id}/update',[AdminGamesController::class, 'update'])->name('games.update');
         
-        Route::put('/games/{id}/update',[AdminUserGamesController::class, 'update'])->name('games.update');
+        Route::put('/games/{id}/update',[AdminUserGamesController::class, 'update'])->name('games.position.update');
         
         
         Route::get('/dashboard',[AdminDashboardController::class, 'index'])->name('dashboard');

@@ -34,6 +34,13 @@ class UsersController extends Controller
     //プロフィール更新
     public function update(Request $request, $id)
     {
+        
+        //バリデーション
+        $request->validate([
+            'name' => 'required|max:255',
+            'image' => 'max:255',
+        ]);
+        
         //idの値でログイン中のユーザーを取得
         $user = User::find($id);
         

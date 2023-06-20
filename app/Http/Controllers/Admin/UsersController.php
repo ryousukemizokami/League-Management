@@ -30,6 +30,15 @@ class UsersController extends Controller
     //選手を保存
     public function store(Request $request)
     {
+        
+        //バリデーション
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'required|max:255',
+            'position_id' => 'required|max:255',
+        ]);
+        
         $user = new User();
         $user->name = $request->name;
         $user->birthday = $request->birthday;

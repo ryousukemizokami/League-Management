@@ -24,6 +24,7 @@
                     <th class="text-center">対戦相手</th>
                     <th class="text-center">場所</th>
                     <th class="text-center">メモ</th>
+                    <th class="text-center">参加状況</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,9 @@
                         <td class="text-center">{{ $game->battleteam }}</td>
                         <td class="text-center">{{ $game->place }}</td>
                         <td class="text-center">{{ $game->memo }}</td>
+                        <td class="text-center">
+                            {{ $game->mystatus() }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

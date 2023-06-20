@@ -33,4 +33,27 @@ class Game extends Model
         return $this->users()->where('user_id', $userId)->where('status', 2)->exists();
     }
     
+    /**
+     * 試合への参加する選手のstatusを取得。
+     */
+    
+    public function mystatus(){
+        $user_id = \Auth::id();
+        $game_id = $this->id;
+        $user_game = UserGame::where('user_id', $user_id)->where('game_id', $game_id)->get()->first();
+        if($user_game != NULL){
+            $status = $user_game->status;
+            if($status == 1){
+                return '参加申請中';
+            }elseif($status == 99){
+                return '不参加';
+            }else{
+                return 'ポジション決定済';
+            }
+        }else{
+            return '未回答';
+        }
+        
+    }
+    
 }

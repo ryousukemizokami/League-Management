@@ -35,7 +35,9 @@
                         <td class="text-center">
                             @foreach($game->users as $user)
                                 @if($game->is_determined($user->id))
-                                    <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                                    <a href="{{ route('users.show', $user->id) }}">
+                                        <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                                    </a>
                                 @endif
                             @endforeach
                         </td>

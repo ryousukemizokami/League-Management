@@ -17,6 +17,7 @@ class GamesController extends Controller
         $game = Game::find($id);
         $positions = Position::all();
         $users = $game->users()->whereIn('status', [1, 2])->get();
-        return view('games.show', compact('game', 'positions', 'users'));
+        $un_answered_users = $game->un_answered_users();
+        return view('games.show', compact('game', 'positions', 'users', 'un_answered_users'));
     }
 }

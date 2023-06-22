@@ -34,6 +34,13 @@ class Game extends Model
     }
     
     /**
+     * この試合を欠席する選手。（ Userモデルとの関係を定義）
+     */
+    public function is_absent($userId){
+        return $this->users()->where('user_id', $userId)->where('status', 99)->exists();
+    }
+    
+    /**
      * 試合への参加する選手のstatusを取得。
      */
     
@@ -54,6 +61,14 @@ class Game extends Model
             return '未回答';
         }
         
+    }
+    
+    /**
+     * この試合に未回答の選手を取得。（ Userモデルとの関係を定義）
+     */
+    public function un_answered_users(){
+        $answered_userIds = $this->users()->pluck('user_id')->all();
+        return User::whereNotIn('id', $answered_userIds)->get();
     }
     
 }

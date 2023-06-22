@@ -21,7 +21,6 @@
                     <th class="text-center">対戦相手</th>
                     <th class="text-center">場所</th>
                     <th class="text-center">メモ</th>
-                    <th class="text-center">参加者</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,18 +31,54 @@
                         <td class="text-center">{{ $game->battleteam }}</td>
                         <td class="text-center">{{ $game->place }}</td>
                         <td class="text-center">{{ $game->memo }}</td>
-                        <td class="text-center">
-                            @foreach($game->users as $user)
-                                @if($game->is_determined($user->id))
-                                    <a href="{{ route('admin.users.show', $user->id) }}">
-                                        <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
-                                    </a>
-                                @endif
-                            @endforeach
-                        </td>
                     </tr>
             </tbody>
         </table>
+        
+        <h2>参加状況</h2>
+        <div class="flex justify-between">
+            <div class="mt-4">
+                <p class="badge badge-primary">参加確定</p>
+                @foreach($game->users as $user)
+                    @if($game->is_determined($user->id))
+                        <a href="{{ route('users.show', $user->id) }}">
+                            <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+            
+            <div class="mt-4">
+                <p class="badge badge-primary">参加申請中</p>
+                @foreach($game->users as $user)
+                    @if($game->is_present($user->id))
+                        <a href="{{ route('users.show', $user->id) }}">
+                            <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+            
+            <div class="mt-4">
+                <p class="badge badge-primary">不参加</p>
+                @foreach($game->users as $user)
+                    @if($game->is_absent($user->id))
+                        <a href="{{ route('users.show', $user->id) }}">
+                            <li class="list-none">{{ $user->name }} / {{ $user->position_name($game->id) }}</li>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+            
+            <div class="mt-4">
+                <p class="badge badge-primary">未回答</p>
+                @foreach($un_answered_users as $user)
+                    <a href="{{ route('users.show', $user->id) }}">
+                        <li class="list-none">{{ $user->name }} / {{ $user->position->name }}</li>
+                    </a>
+                @endforeach
+            </div>
+        </div>
         
         <div class="mt-4">
             <h2 class="badge badge-primary">スターティングメンバー</h2>

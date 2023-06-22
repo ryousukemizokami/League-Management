@@ -103,6 +103,43 @@ class User extends Authenticatable
     }
     
     /**
+     * 選手が指定された$gameIdの試合への参加を申請中。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_apply($gameId)
+    {
+        return $this->games()->where('game_id', $gameId)->where('status', 1)->exists();
+    }
+    
+    /**
+     * 選手が指定された$gameIdの試合を欠席。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_absence($gameId)
+    {
+        return $this->games()->where('game_id', $gameId)->where('status', 99)->exists();
+    }
+    
+    /**
+     * 選手が未回答の試合を取得。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function un_answered_games()
+    {
+        $answered_gameIds = $this->games()->pluck('game_id')->all();
+        return Game::whereNotIn('id', $answered_gameIds)->get();
+    }
+    
+    /**
      * 選手が出席する試合（UserGameテーブル）に登録されている選手のposition_idを取得
      * positionテーブルでそのnameを取得。
      *

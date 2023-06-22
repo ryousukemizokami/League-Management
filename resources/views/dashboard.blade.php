@@ -7,7 +7,9 @@
                 <div class="max-w-md mb-10">
                     <h2>Welcome to League Management</h2>
                     {{-- 選手ログインページへのリンク --}}
-                    <a class="btn btn-primary btn-lg normal-case" href="{{ route('login') }}">Login now!</a>
+                    <a class="btn btn-primary btn-lg normal-case" href="{{ route('login') }}">選手ログイン</a>
+                    {{-- 監督ログインページへのリンク --}}
+                    <a class="btn btn-primary btn-lg normal-case" href="{{ route('admin.login') }}">監督ログイン</a>
                 </div>
             </div>
         </div>

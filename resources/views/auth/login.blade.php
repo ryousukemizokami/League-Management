@@ -26,8 +26,8 @@
 
             <button type="submit" class="btn btn-primary btn-block normal-case">Log in</button>
 
-            {{-- ユーザ登録ページへのリンク --}}
-            {{-- <p class="mt-2">New user? <a class="link link-hover text-info" href="{{ route('register') }}">Sign up now!</a></p> --}}
+            {{-- 監督ログインページへのリンク --}}
+            <a class="link link-hover text-info" href="{{ route('admin.login') }}">監督ログイン</a>
         </form>
     </div>
 @endsection

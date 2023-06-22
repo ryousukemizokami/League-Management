@@ -54,6 +54,7 @@ class UsersController extends Controller
     public function show(Request $request, $id)
     {
         $user = User::find($id);
-        return view('admin.users.show', compact('user'));
+        $un_answered_games = $user->un_answered_games();
+        return view('users.show', compact('user', 'un_answered_games'));
     }
 }

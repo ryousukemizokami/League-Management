@@ -12,6 +12,9 @@
             </div>
         </div>
     @else
+    
+        <a class="btn btn-primary" href="{{ route('admin.games.edit', $game->id) }}">試合情報更新</a>
+        
         <table class="table table-zebra w-full">
             <thead>
                 <tr>

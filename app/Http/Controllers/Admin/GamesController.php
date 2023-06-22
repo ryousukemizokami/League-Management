@@ -50,4 +50,36 @@ class GamesController extends Controller
         $un_answered_users = $game->un_answered_users();
         return view('admin.games.show', compact('game', 'positions', 'users', 'un_answered_users'));
     }
+    
+    //試合更新画面表示処理
+    public function edit(Request $request, $id)
+    {
+        $game = Game::find($id);
+        return view('admin.games.edit', compact('game'));
+    }
+    
+    //試合情報更新
+    public function update(Request $request, $id)
+    {
+        
+        //バリデーション
+        $request->validate([
+            'day' => 'required',
+            'time' => 'required',
+            'battleteam' => 'required|max:255',
+            'place' => 'required|max:255',
+        ]);
+        
+        //idの値で試合情報を取得
+        $game = Game::find($id);
+        
+        $game->day = $request->day;
+        $game->time = $request->time;
+        $game->battleteam = $request->battleteam;
+        $game->place = $request->place;
+        $game->memo = $request->memo;
+        $game->save();
+        
+        return redirect('/admin/games/' . $id);
+    }
 }

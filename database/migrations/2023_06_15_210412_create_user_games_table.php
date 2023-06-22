@@ -25,6 +25,9 @@ return new class extends Migration
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
+            
+            // game_idとuser_idの組み合わせの重複を許さない
+            $table->unique(['game_id', 'user_id']);
         });
     }
 

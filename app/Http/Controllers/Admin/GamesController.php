@@ -82,4 +82,16 @@ class GamesController extends Controller
         
         return redirect('/admin/games/' . $id);
     }
+    
+     //試合削除表示処理
+    public function destroy(Request $request, $id)
+    {
+        $game = Game::find($id);
+        
+        $game->delete();
+        
+        return redirect('/admin/dashboard/');
+    }
+    
+    
 }

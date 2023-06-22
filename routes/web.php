@@ -74,6 +74,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/games/{id}',[AdminGamesController::class, 'show'])->name('games.show');
         Route::get('/games/{id}/edit',[AdminGamesController::class, 'edit'])->name('games.edit');
         Route::put('/games/{id}/update',[AdminGamesController::class, 'update'])->name('games.update');
+        Route::delete('/games/{id}/destroy',[AdminGamesController::class, 'destroy'])->name('games.destroy');
         
         Route::put('/games/{id}/position/update',[AdminUserGamesController::class, 'update'])->name('games.position.update');
         

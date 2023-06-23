@@ -15,7 +15,7 @@
     
         <a class="btn btn-primary" href="{{ route('admin.games.edit', $game->id) }}">試合情報更新</a>
         
-        {{-- メッセージ削除フォーム --}}
+        {{-- 試合削除フォーム --}}
         <form method="POST" action="{{ route('admin.games.destroy', $game->id) }}" class="my-2">
             @csrf
             @method('DELETE')
@@ -102,6 +102,7 @@
                     <th class="text-center">名前</th>
                     <th class="text-center">ポジション</th>
                     <th class="text-center"></th>
+                    <th class="text-center"></th>
                     
                 </tr>
             </thead>
@@ -123,10 +124,16 @@
                                 </td>
                                 <td><button type="submit" class="text-center btn btn-primary btn-block normal-case">決定</button></td>
                             </form>
-                            
+                            <td class="text-center"></td>
                         @else
                             <td class="text-center">{{ $user->position_name($game->id) }}</td>
                             <td class="text-center">決定済</td>
+                            <form method="post" action="{{ route('admin.games.reset', $game->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                <td><button type="submit" class="text-center btn btn-error btn-outline normal-case">修正</button></td>
+                            </form>
                         @endif
                         
                         

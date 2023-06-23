@@ -84,6 +84,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::delete('/games/{id}/destroy',[AdminGamesController::class, 'destroy'])->name('games.destroy');
         
         Route::put('/games/{id}/position/update',[AdminUserGamesController::class, 'update'])->name('games.position.update');
+        Route::put('/games/{id}/reset',[AdminUserGamesController::class, 'reset'])->name('games.reset');
         
         
         Route::get('/dashboard',[AdminDashboardController::class, 'index'])->name('dashboard');

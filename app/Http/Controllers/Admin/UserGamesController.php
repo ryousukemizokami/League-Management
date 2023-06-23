@@ -22,4 +22,15 @@ class UserGamesController extends Controller
         
         return redirect('/admin/games/' . $id);
     }
+    
+     //監督が確定した選手を修正する。
+    public function reset(Request $request, $id)
+    {
+        $user_game = UserGame::where('game_id', $id)->where('user_id', $request->user_id)->get()->first();
+        //dd($user_game);
+        $user_game->status = 1;
+        $user_game->save();
+        
+        return redirect('/admin/games/' . $id);
+    }
 }

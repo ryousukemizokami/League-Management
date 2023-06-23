@@ -55,6 +55,16 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $un_answered_games = $user->un_answered_games();
-        return view('users.show', compact('user', 'un_answered_games'));
+        return view('admin.users.show', compact('user', 'un_answered_games'));
+    }
+    
+     //選手削除表示処理
+    public function destroy(Request $request, $id)
+    {
+        $user = User::find($id);
+        
+        $user->delete();
+        
+        return redirect('/admin/users/');
     }
 }

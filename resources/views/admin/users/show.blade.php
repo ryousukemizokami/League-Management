@@ -1,6 +1,18 @@
 @extends('admin.layouts.app')
 
 @section('content')
+
+
+
+    {{-- メッセージ削除フォーム --}}
+    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="my-2">
+        @csrf
+        @method('DELETE')
+        
+        <button type="submit" class="btn btn-error btn-outline" 
+            onclick="return confirm('id = {{ $user->id }} の選手を削除します。よろしいですか？')">選手削除</button>
+    </form>
+
     <h2 class="badge badge-primary">{{ $user->name }}/参加確定</h2>
     
     <table class="table table-zebra w-full">

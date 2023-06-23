@@ -25,9 +25,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block normal-case">Log in</button>
-
             {{-- 監督ログインページへのリンク --}}
             <a class="link link-hover text-info" href="{{ route('admin.login') }}">監督ログイン</a>
         </form>
     </div>
+    
 @endsection

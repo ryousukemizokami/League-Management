@@ -14,6 +14,7 @@
     @else
     
         <a class="btn btn-primary" href="{{ route('admin.games.edit', $game->id) }}">試合情報更新</a>
+        
         {{-- メッセージ削除フォーム --}}
         <form method="POST" action="{{ route('admin.games.destroy', $game->id) }}" class="my-2">
             @csrf

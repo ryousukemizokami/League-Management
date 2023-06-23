@@ -72,6 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/users/create',[AdminUsersController::class, 'create'])->name('users.create');
         Route::post('/users/store',[AdminUsersController::class, 'store'])->name('users.store');
         Route::get('/users/{id}',[AdminUsersController::class, 'show'])->name('users.show');
+        Route::delete('/users/{id}/destroy',[AdminUsersController::class, 'destroy'])->name('users.destroy');
         
         Route::get('/teams',[AdminTeamsController::class, 'index'])->name('teams.index');
         

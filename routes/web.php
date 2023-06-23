@@ -6,11 +6,13 @@ use App\Http\Controllers\Admin\UsersController as AdminUsersController; //admin�
 use App\Http\Controllers\Admin\GamesController as AdminGamesController; //adminの試合操作
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; //adminのダッシュボード操作
 use App\Http\Controllers\Admin\UserGamesController as AdminUserGamesController; //adminの試合の出欠確定操作
+use App\Http\Controllers\TeamsController as AdminTeamsController; //adminのチーム詳細操作
 //Player側操作
 use App\Http\Controllers\UsersController as PlayerUsersController; //選手の選手情報操作
 use App\Http\Controllers\GamesController as PlayerGamesController; //選手の試合操作
-use App\Http\Controllers\DashboardController as playerDashboardController; //選手のダッシュボード操作
+use App\Http\Controllers\DashboardController as PlayerDashboardController; //選手のダッシュボード操作
 use App\Http\Controllers\UserGamesController as PlayerUserGamesController; //選手の試合の出欠回答操作
+use App\Http\Controllers\TeamsController as PlayerTeamsController; //選手のチーム詳細操作
 
 use App\Http\Controllers\ProfileController as ProfileOfAdminController; //追加
 use Illuminate\Support\Facades\Route;
@@ -41,10 +43,12 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/dashboard',[PlayerDashboardController::class, 'index'])->name('dashboard');
     
-    Route::get('/users',[playerUsersController::class, 'index'])->name('users.index');
+    Route::get('/users',[PlayerUsersController::class, 'index'])->name('users.index');
     Route::get('/users/{id}',[PlayerUsersController::class, 'show'])->name('users.show');
     Route::get('/users/{id}/edit',[PlayerUsersController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}/update',[PlayerUsersController::class, 'update'])->name('users.update');
+    
+    Route::get('/teams',[PlayerTeamsController::class, 'index'])->name('teams.index');
     
     Route::get('/games/{id}',[PlayerGamesController::class, 'show'])->name('games.show');
     Route::post('/games/{id}/submit',[PlayerUserGamesController::class, 'store'])->name('games.submit');
@@ -68,6 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/users/create',[AdminUsersController::class, 'create'])->name('users.create');
         Route::post('/users/store',[AdminUsersController::class, 'store'])->name('users.store');
         Route::get('/users/{id}',[AdminUsersController::class, 'show'])->name('users.show');
+        
+        Route::get('/teams',[AdminTeamsController::class, 'index'])->name('teams.index');
         
         Route::get('/games/create',[AdminGamesController::class, 'create'])->name('games.create');
         Route::post('/games/store',[AdminGamesController::class, 'store'])->name('games.store');

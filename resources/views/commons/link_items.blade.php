@@ -1,6 +1,6 @@
 @if (Auth::check())
     {{-- チーム詳細ページへのリンク --}}
-    <li><a class="link link-hover" href="#">チームprofile</a></li>
+    <li><a class="link link-hover" href="{{ route('teams.index') }}">チームprofile</a></li>
     {{-- メンバー詳細ページへのリンク --}}
     <li><a class="link link-hover" href="{{ route('users.index') }}">member</a></li>
     <li class="divider lg:hidden"></li>

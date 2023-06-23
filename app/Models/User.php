@@ -152,4 +152,6 @@ class User extends Authenticatable
         $position_id = $this->hasMany(UserGame::class)->where('game_id', $gameId)->get()->first()->position_id;
         return Position::find($position_id)->name;
     }
+    
+    
 }

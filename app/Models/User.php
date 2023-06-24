@@ -103,6 +103,18 @@ class User extends Authenticatable
     }
     
     /**
+     * 監督によって選手の参加が確定した試合。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_done_games()
+    {
+        return $this->games()->where('status', 2)->exists();
+    }
+    
+    /**
      * 選手が指定された$gameIdの試合への参加を申請中。
      *
      * @param  int  $gameId
@@ -112,6 +124,18 @@ class User extends Authenticatable
     public function is_apply($gameId)
     {
         return $this->games()->where('game_id', $gameId)->where('status', 1)->exists();
+    }
+    
+    /**
+     * 選手が試合への参加を申請中の試合。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_apply_games()
+    {
+        return $this->games()->where('status', 1)->exists();
     }
     
     /**
@@ -127,6 +151,18 @@ class User extends Authenticatable
     }
     
     /**
+     * 選手が欠席する試合。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function is_absence_games()
+    {
+        return $this->games()->where('status', 99)->exists();
+    }
+    
+    /**
      * 選手が未回答の試合を取得。
      *
      * @param  int  $gameId
@@ -137,6 +173,19 @@ class User extends Authenticatable
     {
         $answered_gameIds = $this->games()->pluck('game_id')->all();
         return Game::whereNotIn('id', $answered_gameIds)->get();
+    }
+    
+    /**
+     * 選手が未回答の試合。
+     *
+     * @param  int  $gameId
+     * @return bool
+     */
+    
+    public function un_answered_games_exists()
+    {
+        $answered_gameIds = $this->games()->pluck('game_id')->all();
+        return Game::whereNotIn('id', $answered_gameIds)->exists();
     }
     
     /**

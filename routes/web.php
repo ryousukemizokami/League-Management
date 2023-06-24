@@ -51,7 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/teams',[PlayerTeamsController::class, 'index'])->name('teams.index');
     
     Route::get('/games/{id}',[PlayerGamesController::class, 'show'])->name('games.show');
+    
     Route::post('/games/{id}/submit',[PlayerUserGamesController::class, 'store'])->name('games.submit');
+    Route::delete('/games/{id}/destroy',[PlayerUserGamesController::class, 'destroy'])->name('games.destroy');
     
 });
 

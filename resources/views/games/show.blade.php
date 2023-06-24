@@ -101,6 +101,19 @@
                 </div>
                 <button type="submit" class="btn btn-primary normal-case">登録</button>
             </form>
+        @else
+        
+        <p class="mt-4">出欠回答済</p>
+        
+        {{-- 回答削除フォーム --}}
+        <form method="POST" action="{{ route('games.destroy', $game->id) }}" class="my-2">
+            @csrf
+            @method('DELETE')
+            
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            <button type="submit" class="btn btn-error btn-outline" onclick="return confirm('id = {{ $game->id }} の試合の回答を修正します。よろしいですか？')">回答修正</button>
+        </form>
+        
         @endif
         
     @endif
